@@ -1,0 +1,10 @@
+{
+  "url": "https://learntgbot.vercel.app",
+  "name": "My TON MiniApp",
+  "iconUrl": "https://learntgbot.vercel.app/icon.png",
+  "termsOfUseUrl": "https://learntgbot.vercel.app/terms",
+  "privacyPolicyUrl": "https://learntgbot.vercel.app/privacy",
+  "manifestVersion": "1",
+  "bridgeUrl": "https://bridge.tonapi.io/bridge",
+  "webview": true
+}
