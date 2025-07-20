@@ -2,20 +2,25 @@
 
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { tonConnectUI } from '../utils/tonconnect-ui';
+import { createTonConnectUI } from '../utils/tonconnect-ui';
+import { TonConnectUI } from '@tonconnect/ui';
 
 const Header = () => {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
+  const [tonConnectUI, setTonConnectUI] = useState<TonConnectUI | null>(null);
 
   useEffect(() => {
-    tonConnectUI.connectionRestored.then(() => {
-      const account = tonConnectUI.account;
+    const ui = createTonConnectUI();
+    setTonConnectUI(ui);
+
+    ui.connectionRestored.then(() => {
+      const account = ui.account;
       if (account?.address) {
         setWalletAddress(account.address);
       }
     });
 
-    tonConnectUI.onStatusChange((wallet) => {
+    ui.onStatusChange((wallet) => {
       if (wallet) {
         setWalletAddress(wallet.account.address);
       } else {
@@ -25,11 +30,15 @@ const Header = () => {
   }, []);
 
   const connectWallet = async () => {
-    await tonConnectUI.connectWallet();
+    if (tonConnectUI) {
+      await tonConnectUI.connectWallet();
+    }
   };
 
   const disconnectWallet = async () => {
-    await tonConnectUI.disconnect();
+    if (tonConnectUI) {
+      await tonConnectUI.disconnect();
+    }
   };
 
   return (
